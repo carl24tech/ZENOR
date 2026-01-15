@@ -102,12 +102,12 @@ async function loadGiftedSession() {
                 return false;
             }
         } catch (error) {
-            console.error('âŒ Failed to process session:', error.message);
+            console.error('âŒ Failed to process Gifted session:', error.message);
             console.error('ðŸ” Error details:', error);
             return false;
         }
     } else {
-        console.log("âš ï¸  SESSION_ID does not start with Buddy~");
+        console.log("âš ï¸  SESSION_ID does not start with Gifted~");
         return false;
     }
 }
@@ -120,7 +120,7 @@ async function downloadLegacySession() {
         return false;
     }
 
-    const sessdata = config.SESSION_ID.split("Gifted~")[1];
+    const sessdata = config.SESSION_ID.split("CLOUD-AI~")[1];
 
     if (!sessdata || !sessdata.includes("#")) {
         console.error('âŒ Invalid SESSION_ID format! It must contain both file ID and decryption key.');
@@ -153,7 +153,7 @@ async function start() {
     try {
         const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
         const { version, isLatest } = await fetchLatestBaileysVersion();
-        console.log(`ðŸ¤– Buddy using WA v${version.join('.')}, isLatest: ${isLatest}`);
+        console.log(`ðŸ¤– JAWAD-MD using WA v${version.join('.')}, isLatest: ${isLatest}`);
         
         const Matrix = makeWASocket({
             version,
@@ -166,7 +166,7 @@ async function start() {
                     const msg = await store.loadMessage(key.remoteJid, key.id);
                     return msg.message || undefined;
                 }
-                return { conversation: " carl ai whatsapp user bot" };
+                return { conversation: " cloid ai whatsapp user bot" };
             }
         });
 
@@ -178,18 +178,24 @@ async function start() {
                 }
             } else if (connection === 'open') {
                 if (initialConnection) {
-                    console.log(chalk.green("Connected Successfully  ðŸ¤"));
+                    console.log(chalk.green("Connected Successfully cloud Ai ðŸ¤"));
                     Matrix.sendMessage(Matrix.user.id, { 
-                        image: { url: "https://carlmultimedia.vercel.app/TOyhVd.jpg" }, 
-                        caption: `*Hello there User!* 
+                        image: { url: "https://files.catbox.moe/pf270b.jpg" }, 
+                        caption: `*Hello there User! ðŸ‘‹ðŸ»* 
 
+> Simple, Straightforward, But Loaded With Features ðŸŽŠ. Meet CLOUD-AI WhatsApp Bot.
 
+*Thanks for using CLOUD AI ðŸš©* 
+
+> Join WhatsApp Channel: â¤µï¸  
+https://whatsapp.com/channel/0029VajJoCoLI8YePbpsnE3q
 
 - *YOUR PREFIX:* = ${prefix}
 
+Don't forget to give a star to the repo â¬‡ï¸  
+https://github.com/DEVELOPER-BERA/CLOUD-AI
 
-
-> Â© REGARDS Carl And Bera`
+> Â© REGARDS BERA`
                     });
                     initialConnection = false;
                 } else {
