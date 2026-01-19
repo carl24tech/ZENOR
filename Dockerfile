@@ -1,10 +1,10 @@
 FROM node:lts-alpine
 
-# Install system dependencies
+# Install system dependencies with correct Alpine package names
 RUN apk add --no-cache \
     ffmpeg \
     imagemagick \
-    webp \
+    libwebp \
     bash
 
 WORKDIR /usr/src/app
@@ -15,7 +15,7 @@ RUN npm ci --only=production
 
 COPY . .
 
-# Run as non-root user
+# Create and switch to non-root user (optional but recommended)
 RUN adduser -D -u 1001 appuser && chown -R appuser:appuser /usr/src/app
 USER appuser
 
