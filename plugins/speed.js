@@ -1,21 +1,67 @@
-import config from '../../config.cjs';
+import config from '../config.cjs';
 
-const ping = async (m, sock) => {
+const speed = async (m, Matrix) => {
   const prefix = config.PREFIX;
-const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
-const text = m.body.slice(prefix.length + cmd.length).trim();
+  const cmd = m.body.startsWith(prefix)
+    ? m.body.slice(prefix.length).split(' ')[0].toLowerCase()
+    : '';
 
-  if (cmd === "speed") {
-    const start = new Date().getTime();
-    await m.React('⏳');
-    const end = new Date().getTime();
-    const responseTime = (end - start) / 1000;
+  if (cmd === 'speed') {
+    const start = Date.now();
 
+    await m.React('⚡');
 
+    const progressBars = [
+      '[░░░░░░░░░░] 0%',
+      '[█░░░░░░░░░] 10%',
+      '[██░░░░░░░░] 20%',
+      '[███░░░░░░░] 30%',
+      '[████░░░░░░] 40%',
+      '[█████░░░░░] 50%',
+      '[██████░░░░] 60%',
+      '[███████░░░] 70%',
+      '[████████░░] 80%',
+      '[█████████░] 90%',
+      '[██████████] 100%'
+    ];
 
-    const text = `*▰▰▰▰▰▰▱▱▱▱ 70${responseTime.toFixed(2)}0 ms*`;
-    sock.sendMessage(m.from, { text }, { quoted: m });
+    const loadingText = (bar) =>
+      `🚀 *Speed Test in Progress*\n\n${bar}\n\n⚡ Optimizing performance...`;
+
+    // Send initial message
+    const msg = await Matrix.sendMessage(m.from, {
+      text: loadingText(progressBars[0])
+    }, { quoted: m });
+
+    // Animate progress bar
+    for (let i = 1; i < progressBars.length; i++) {
+      await new Promise(resolve => setTimeout(resolve, 450));
+
+      await Matrix.sendMessage(m.from, {
+        text: loadingText(progressBars[i]),
+        edit: msg.key
+      });
+    }
+
+    const end = Date.now();
+    const speedMs = end - start;
+
+    const finalText =
+      `⚡ *Speed Test Complete*\n\n` +
+      `🚀 Response Time: *${speedMs}ms*\n` +
+      `✅ Status: *Ultra Fast*`;
+
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    await Matrix.sendMessage(m.from, {
+      text: finalText,
+      contextInfo: {
+        mentionedJid: [m.sender],
+        forwardingScore: 999,
+        isForwarded: true
+      }
+    }, { quoted: m });
   }
-}
+};
 
-export default ping;
+export default speed;
