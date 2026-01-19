@@ -1,18 +1,23 @@
-FROM node:lts-buster
+FROM node:lts-alpine
 
-RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  rm -rf /var/lib/apt/lists/*
+# Install system dependencies
+RUN apk add --no-cache \
+    ffmpeg \
+    imagemagick \
+    webp \
+    bash
 
-COPY package.json .
+WORKDIR /usr/src/app
 
-RUN npm install && npm install -g qrcode-terminal pm2
+COPY package*.json ./
+
+RUN npm ci --only=production
 
 COPY . .
+
+# Run as non-root user
+RUN adduser -D -u 1001 appuser && chown -R appuser:appuser /usr/src/app
+USER appuser
 
 EXPOSE 3000
 
