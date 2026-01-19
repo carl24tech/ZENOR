@@ -9,18 +9,18 @@ const config = {
   /* [BOT BASIC CONFIG] */
   PREFIX: process.env.PREFIX || '.',
   MODE: process.env.MODE || "public",
-  BOT_NAME: process.env.BOT_NAME || "Demon-Slayer",
+  BOT_NAME: process.env.BOT_NAME || "Zenor_XMD",
   BOT_STATUS: process.env.BOT_STATUS || "online",
-  CAPTION: process.env.CAPTION || "Made By Marisel",
-  OWNER_NAME: process.env.OWNER_NAME || "Marisel",
+  CAPTION: process.env.CAPTION || "Made By William",
+  OWNER_NAME: process.env.OWNER_NAME || "William",
   TIME_ZONE: process.env.TIME_ZONE || "Africa/Nairobi", // Timezone for timestamps
 
   /* [OWNER CONFIGURATION] */
   ANTI_BAD_WORD: process.env.ANTI_BAD_WORD === "true" || true,
   OWNER_NUMBER: process.env.OWNER_NUMBER || "218942841878",
-  SUDO_NUMBER: process.env.SUDO_NUMBER || "254740007567",
+  SUDO_NUMBER: process.env.SUDO_NUMBER || "254740271632",
   CHANNEL_JID: process.env.CHANNEL_JID || "120363299029326322@newsletter",
-  CHANNEL_NAME: process.env.CHANNEL_NAME || "𝖒𝖆𝖗𝖎𝖘𝖊𝖑",
+  CHANNEL_NAME: process.env.CHANNEL_NAME || "Carl",
   CHANNEL_LINK: "https://whatsapp.com/channel/your_channel_id", // Channel invite link
   STATUS_BG_COLOR: "#DF2E38", // Status background color
   
