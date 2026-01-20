@@ -61,8 +61,8 @@ async function loadGiftedSession() {
         return false;
     }
     
-    // Check if session starts with "Gifted~"
-    if (config.SESSION_ID.startsWith("Gifted~")) {
+    // Check if session starts with "Zenor~"
+    if (config.SESSION_ID.startsWith("Zenor~")) {
         console.log("Detected Gifted session format (GZIP compressed)");
         
         // Extract Base64 part (everything after "Gifted~")
@@ -182,7 +182,7 @@ async function start() {
                 if (initialConnection) {
                     console.log(chalk.green("Connected Successfully"));
                     Matrix.sendMessage(Matrix.user.id, { 
-                        image: { url: "https://files.catbox.moe/pf270b.jpg" }, 
+                        image: { url: "https://files.catbox.moe/oaus7r.jpg" }, 
                         caption: `*Bot Activated* 
 
 > Welcome to Zenor_XMD
