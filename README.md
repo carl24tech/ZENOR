@@ -64,8 +64,7 @@
     <img alt="CLICK HERE" src="https://img.shields.io/badge/ JOIN NOW 🚀 -25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
 
-
-- <a href="https://whatsapp.com/channel/0029VbC0ab9DjiOZMtRROs0p" target="_blank">
+ <a href="https://whatsapp.com/channel/0029VbC0ab9DjiOZMtRROs0p" target="_blank">
     
 <img alt="CLICK HERE " src="https://img.shields.io/badge/ FOLLOW NOW  -25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
@@ -79,4 +78,4 @@
 
 [![Zenor tech](https://readme-typing-svg.demolab.com?font=Anton&size=30&pause=998&color=F51FFF&background=F7F2F20A&vCenter=true&random=false&width=465&lines=thank+you%F0%9F%91%8B!;for+using+ZENOR+XMD;🙏;🙏+✍🏾;🥰)](https://github.com/thegrounder254)
 
-Special thanks to bro[Carl William](https://github.com/carl24tech) 
+##Special thanks to bro[Carl William](https://github.com/carl24tech) 
