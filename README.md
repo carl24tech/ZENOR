@@ -78,4 +78,5 @@
 
 [![Zenor tech](https://readme-typing-svg.demolab.com?font=Anton&size=30&pause=998&color=F51FFF&background=F7F2F20A&vCenter=true&random=false&width=465&lines=thank+you%F0%9F%91%8B!;for+using+ZENOR+XMD;🙏;🙏+✍🏾;🥰)](https://github.com/thegrounder254)
 
-##Special thanks to bro[Carl William](https://github.com/carl24tech) 
+
+Special thanks to bro[Carl William](https://github.com/carl24tech) 
