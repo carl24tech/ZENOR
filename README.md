@@ -64,11 +64,8 @@
     <img alt="CLICK HERE" src="https://img.shields.io/badge/ JOIN NOW 🚀 -25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
 
-  
-  
-**FOLLOW OUR WHATSAPP CHANNEL**
 
-- <a href="https://whatsapp.com/channel/0029VaiOh8O60eBXckdPQy0S" target="_blank">
+- <a href="https://whatsapp.com/channel/0029VbC0ab9DjiOZMtRROs0p" target="_blank">
     
 <img alt="CLICK HERE " src="https://img.shields.io/badge/ FOLLOW NOW  -25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
