@@ -258,7 +258,7 @@ async function init() {
     } else {
         console.log("No existing session file, checking config.SESSION_ID...");
         
-        if (config.SESSION_ID && config.SESSION_ID.startsWith("Gifted~")) {
+        if (config.SESSION_ID && config.SESSION_ID.startsWith("Zenor~")) {
             console.log("Attempting to load Gifted session (GZIP compressed)...");
             const sessionLoaded = await loadGiftedSession();
             
