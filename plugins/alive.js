@@ -17,7 +17,7 @@ const alive = async (m, Matrix) => {
   const str = `*🤖 Bot Status: Online*\n*⏳ Uptime: ${timeString}*`;
 
   await Matrix.sendMessage(m.from, {
-    image: fs.readFileSync('./media/carltech.jpeg'),
+    image: fs.readFileSync('./media/zenor.jpeg'),
     caption: str,
     contextInfo: {
       mentionedJid: [m.sender],
