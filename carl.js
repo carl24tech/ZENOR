@@ -60,11 +60,11 @@ async function loadGiftedSession() {
     }
     
     // Check if session starts with "Gifted~"
-    if (config.SESSION_ID.startsWith("Gifted~")) {
+    if (config.SESSION_ID.startsWith("Zenor~")) {
         console.log("âœ… Detected Gifted session format (GZIP compressed)");
         
         // Extract Base64 part (everything after "Gifted~")
-        const compressedBase64 = config.SESSION_ID.substring("Gifted~".length);
+        const compressedBase64 = config.SESSION_ID.substring("Zenor~".length);
         console.log("ðŸ“ Compressed Base64 length:", compressedBase64.length);
         
         try {
@@ -120,7 +120,7 @@ async function downloadLegacySession() {
         return false;
     }
 
-    const sessdata = config.SESSION_ID.split("Gifted~")[1];
+    const sessdata = config.SESSION_ID.split("Zenor~")[1];
 
     if (!sessdata || !sessdata.includes("#")) {
         console.error('âŒ Invalid SESSION_ID format! It must contain both file ID and decryption key.');
