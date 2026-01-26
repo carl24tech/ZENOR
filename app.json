@@ -8,7 +8,7 @@
   "env": { 
   
     "SESSION_ID": {
-      "description": "Ensure your session Id starts with the word CLOUD-AI~$",
+      "description": "Ensure your session Id starts with the word Zenor",
       "required": true,
       "value": ""
     },
