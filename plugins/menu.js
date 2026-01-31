@@ -71,6 +71,7 @@ const menu = async (m, Matrix) => {
 ╭━━━〔 *${config.BOT_NAME}* 〕━━━┈⊷
 ┃★╭──────────────
 ┃★│ Owner : *${config.OWNER_NAME}*
+┃★│ Instgram : *https://www.instagram.com/quantum_.vybe?igsh=MTlwOXN5a2sycnA2bA==*
 ┃★│ User : *${m.pushName}*
 ┃★│ Baileys : *Multi Device*
 ┃★│ Type : *NodeJs*
