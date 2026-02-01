@@ -1,15 +1,15 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import {
+import pkg from '@whiskeysockets/baileys';
+const {
     makeWASocket,
     Browsers,
     fetchLatestBaileysVersion,
     DisconnectReason,
-    useMultiFileAuthState,
-    downloadMediaMessage,
-    proto
-} from '@whiskeysockets/baileys';
+    useMultiFileAuthState
+} = pkg;
+
 import { Handler, Callupdate, GroupUpdate } from './data/index.js';
 import express from 'express';
 import pino from 'pino';
@@ -21,11 +21,11 @@ import chalk from 'chalk';
 import moment from 'moment-timezone';
 import axios from 'axios';
 import config from './config.cjs';
-import pkg from './lib/autoreact.cjs';
+import pkg2 from './lib/autoreact.cjs';
 import zlib from 'zlib';
 import { promisify } from 'util';
 
-const { emojis, doReact } = pkg;
+const { emojis, doReact } = pkg2;
 const prefix = process.env.PREFIX || config.PREFIX;
 const sessionName = "session";
 const app = express();
@@ -422,7 +422,8 @@ Matrix.ev.on('connection.update', async (update) => {
             }
             
             // Check for deleted messages
-            if (mek.message?.protocolMessage?.type === proto.Message.ProtocolMessage.Type.REVOKE) {
+            // We'll check for protocol message type 7 which indicates message deletion
+            if (mek.message?.protocolMessage?.type === 7) {
                 const deletedKey = mek.message.protocolMessage.key;
                 if (deletedKey) {
                     console.log(chalk.yellow(`⚠️  Message deletion detected: ${deletedKey.id}`));
