@@ -128,48 +128,79 @@ const play = async (m, gss) => {
 
       m.reply(`*📥 Downloading:* ${videoTitle}`);
 
-      // Using your YOUTUBE_AUDIO API key
-      const apiUrl = `https://apiskeith.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+      // Test the API directly first
+      const testUrl = `https://apiskeith.vercel.app/download/ytmp3?url=${encodeURIComponent(videoUrl)}`;
+      console.log("API URL:", testUrl);
       
-      const response = await axios.get(apiUrl, { timeout: 30000 });
+      const response = await axios.get(testUrl, { 
+        timeout: 30000,
+        headers: {
+          'User-Agent': 'Mozilla/5.0'
+        }
+      });
 
-      // Handle different response formats
-      let downloadUrl, title;
+      console.log("API Response:", response.data);
       
-      if (response.data && response.data.download_url) {
-        downloadUrl = response.data.download_url;
-        title = response.data.title || videoTitle;
-      } else if (response.data && response.data.url) {
-        downloadUrl = response.data.url;
-        title = response.data.title || videoTitle;
-      } else {
-        return m.reply(`❌ Invalid response format from download API.`);
+      // Extract audio URL from response
+      let audioUrl = null;
+      
+      // Method 1: Check if response is a direct URL
+      if (typeof response.data === 'string' && response.data.startsWith('http')) {
+        audioUrl = response.data;
+      }
+      // Method 2: Check common response formats
+      else if (response.data && typeof response.data === 'object') {
+        // Try different possible keys
+        const possibleKeys = ['download_url', 'url', 'link', 'audio_url', 'mp3_url', 'downloadUrl'];
+        
+        for (const key of possibleKeys) {
+          if (response.data[key]) {
+            audioUrl = response.data[key];
+            break;
+          }
+        }
+        
+        // If no key found, check if the object itself is the URL data
+        if (!audioUrl && response.data.url) {
+          audioUrl = response.data.url;
+        }
       }
 
-      // Clean title for WhatsApp
-      const cleanTitle = title.replace(/[^\w\s\-\.]/gi, '').substring(0, 50);
+      if (!audioUrl) {
+        // Send raw response for debugging
+        console.log("Raw response data:", JSON.stringify(response.data, null, 2));
+        return m.reply(`❌ Could not find audio URL in API response.\n*Response format:* ${typeof response.data}\n*Song:* ${videoTitle}`);
+      }
+
+      console.log("Extracted audio URL:", audioUrl);
 
       // Send audio to WhatsApp
       await gss.sendMessage(
         m.from,
         {
-          audio: { url: downloadUrl },
-          mimetype: "audio/mp4",
-          fileName: `${cleanTitle}.mp3`,
+          audio: { url: audioUrl },
+          mimetype: "audio/mpeg",
+          fileName: `${videoTitle.substring(0, 50)}.mp3`,
           ptt: false,
         },
         { quoted: m }
       );
 
-      m.reply(`✅ *${title}*\n🎵 Downloaded and sent successfully!`);
+      m.reply(`✅ *${videoTitle}*\n🎵 Downloaded successfully!`);
 
     } catch (error) {
-      console.error("Play command error:", error);
+      console.error("Error details:", {
+        message: error.message,
+        code: error.code,
+        response: error.response?.data
+      });
       
-      if (error.code === 'ECONNABORTED') {
-        m.reply("❌ Download timeout. Try again or use a shorter song.");
+      if (error.response) {
+        m.reply(`❌ API Error: ${error.response.status} - ${JSON.stringify(error.response.data)}`);
+      } else if (error.code === 'ECONNABORTED') {
+        m.reply("❌ Request timeout. The API is taking too long to respond.");
       } else {
-        m.reply("❌ Failed to download audio. Please try a different song.");
+        m.reply(`❌ Download failed: ${error.message}`);
       }
     }
   }
