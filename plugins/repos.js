@@ -110,46 +110,59 @@ const play = async (m, gss) => {
 
   if (cmd === "play") {
     try {
-      if (!args.length) {
-        return m.reply("*Please provide a song name.*\nExample: .play shape of you");
-      }
-
+      if (!args.length) return m.reply("*Send a song name*\nEx: .play despacito");
+      
       const query = args.join(" ");
-      m.reply(`*Searching for:* ${query}`);
-
+      await m.reply(`🔍 *Searching for:* ${query}`);
+      
       // Search YouTube
       const search = await yts(query);
       const video = search.videos[0];
+      if (!video) return m.reply("❌ *No results found*");
       
-      if (!video) {
-        return m.reply("*No results found.*");
-      }
-
       const title = video.title;
       const url = video.url;
       
-      m.reply(`*Downloading:* ${title}`);
-
-      // Create API URL using your endpoint
-      const apiUrl = `https://apiskeith.vercel.app/download/ytmp3?url=${encodeURIComponent(url)}`;
-
-      // Send audio directly using the API URL
+      await m.reply(`⬇️ *Downloading:* ${title}`);
+      
+      // Create the audio URL using your API
+      const audioUrl = `https://apiskeith.vercel.app/download/ytmp3?url=${encodeURIComponent(url)}`;
+      
+      // **THIS IS THE KEY FIX:**
+      // WhatsApp often rejects external URLs. We need to download first then send as buffer
+      const response = await axios.get(audioUrl, {
+        responseType: 'stream',
+        timeout: 60000,
+        headers: {
+          'User-Agent': 'Mozilla/5.0',
+          'Accept': 'audio/*'
+        }
+      });
+      
+      // Collect stream data into buffer
+      const chunks = [];
+      for await (const chunk of response.data) {
+        chunks.push(chunk);
+      }
+      const audioBuffer = Buffer.concat(chunks);
+      
+      // Send audio as buffer (not URL) - WhatsApp accepts this better
       await gss.sendMessage(
         m.from,
         {
-          audio: { url: apiUrl },
-          mimetype: "audio/mp4",
-          fileName: `${title.substring(0, 50)}.mp3`,
+          audio: audioBuffer,
+          mimetype: "audio/mpeg",
+          fileName: `${title.substring(0, 30)}.mp3`,
           ptt: false,
         },
         { quoted: m }
       );
-
-      m.reply(`✅ *${title}* sent successfully!`);
-
+      
+      await m.reply(`✅ *${title}*\n🎵 Now playing!`);
+      
     } catch (error) {
-      console.error(error);
-      m.reply("❌ Failed to play. Try: .play [song name]");
+      console.error("Play error:", error);
+      await m.reply("❌ Failed to play. Try: .play [song name]");
     }
   }
 };
