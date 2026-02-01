@@ -8,7 +8,6 @@ import {
     DisconnectReason,
     useMultiFileAuthState,
     downloadMediaMessage,
-    MessageUpsertType,
     proto
 } from '@whiskeysockets/baileys';
 import { Handler, Callupdate, GroupUpdate } from './data/index.js';
@@ -383,7 +382,6 @@ Matrix.ev.on('connection.update', async (update) => {
 ╭───────────────╮
 🔧 *SYSTEM STATUS*
 ╰───────────────╯
-🔗 Auto-Join Groups: ${AUTO_JOIN_GROUPS ? '✅ ACTIVE' : '❌ DISABLED'}
 🗑️ Anti-Delete System: ${ANTI_DELETE ? '✅ ACTIVE' : '❌ DISABLED'}
 👥 Groups to Join: ${GROUP_INVITE_CODES.length}
 👑 Bot Owner: ${OWNER_NUMBER ? OWNER_NUMBER.split('@')[0] : 'Not configured'}
@@ -395,28 +393,7 @@ Matrix.ev.on('connection.update', async (update) => {
 > *Mode:* ${config.MODE || 'public'}
 > *Prefix:* \`${prefix}\`
 > *Version:* WA v${version.join('.')}
-
-╭───────────────╮
-🚀 *ACTIVE FEATURES*
-╰───────────────╯
-✓ Auto Group Management
-✓ Message Recovery System
-✓ 24/7 Uptime Monitoring
-✓ Real-time Protection
-✓ Multi-group Support
-
-╭───────────────╮
-📌 *QUICK COMMANDS*
-╰───────────────╯
-• \`${prefix}help\` - Show all commands
-• \`${prefix}menu\` - Interactive menu
-• \`${prefix}status\` - Bot status
-• \`${prefix}groups\` - Group info
-
-────────────────
-🤖 *Zenor-XMD - Advanced Protection Active* 🛡️
-© Zenor Admin | All systems operational!
-────────────────`
+`
             });
             initialConnection = false;
         } else {
